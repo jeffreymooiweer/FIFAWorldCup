@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import i18n from '../i18n'
 import type { AppPreferences } from '../lib/preferences'
 import {
   persistPreferences,
@@ -27,6 +28,13 @@ export function useAppPreferences() {
   }, [edition.theme])
 
   const setYear = useCallback((year: number) => setPrefs({ year }), [setPrefs])
+  const setLanguage = useCallback(
+    (language: string) => {
+      void i18n.changeLanguage(language)
+      setPrefs({ language })
+    },
+    [setPrefs],
+  )
   const setViewModePref = useCallback(
     (viewMode: AppPreferences['viewMode']) => setPrefs({ viewMode }),
     [setPrefs],
@@ -37,6 +45,7 @@ export function useAppPreferences() {
     prefs,
     edition,
     setYear,
+    setLanguage,
     setViewModePref,
     setGroup,
     setPrefs,

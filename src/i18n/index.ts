@@ -1,6 +1,6 @@
 import i18n from 'i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
+import { resolveInitialLanguage } from '../lib/preferences'
 import { DATE_LOCALES, RTL_LANGUAGES, SUPPORTED_LANGUAGES } from '../locales/languages'
 
 const translationModules = import.meta.glob('../locales/*/translation.json', {
@@ -42,22 +42,15 @@ function syncDocumentLanguage(language: string) {
   document.documentElement.dir = RTL_LANGUAGES.has(lang) ? 'rtl' : 'ltr'
 }
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: buildResources(),
-    supportedLngs: [...SUPPORTED_LANGUAGES],
-    fallbackLng: 'en',
-    defaultNS: 'translation',
-    ns: ['translation', 'teams'],
-    interpolation: { escapeValue: false },
-    detection: {
-      order: ['querystring', 'navigator', 'htmlTag'],
-      lookupQuerystring: 'lang',
-      caches: [],
-    },
-  })
+i18n.use(initReactI18next).init({
+  resources: buildResources(),
+  lng: resolveInitialLanguage(),
+  supportedLngs: [...SUPPORTED_LANGUAGES],
+  fallbackLng: 'en',
+  defaultNS: 'translation',
+  ns: ['translation', 'teams'],
+  interpolation: { escapeValue: false },
+})
 
 i18n.on('languageChanged', syncDocumentLanguage)
 syncDocumentLanguage(i18n.language)

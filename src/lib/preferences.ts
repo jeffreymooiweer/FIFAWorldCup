@@ -1,3 +1,4 @@
+import { SUPPORTED_LANGUAGES } from '../locales/languages'
 import { getTournamentYear } from '../config/tournament'
 import {
   getMaxSelectableYear,
@@ -9,14 +10,47 @@ export type ViewMode = 'poster' | 'list'
 
 const STORAGE_KEYS = {
   year: 'wk-year',
+  language: 'wk-language',
   viewMode: 'wk-view-mode',
 } as const
 
 export interface AppPreferences {
   year: number
+  language: string
   viewMode: ViewMode | null
   group: string | null
   matchNum: number | null
+}
+
+export function parseLanguage(value: string | null): string | null {
+  if (!value) return null
+  const base = value.split('-')[0]
+  return SUPPORTED_LANGUAGES.includes(base) ? base : null
+}
+
+export function detectBrowserLanguage(): string {
+  const candidates =
+    typeof navigator !== 'undefined'
+      ? [...(navigator.languages ?? []), navigator.language]
+      : []
+
+  for (const lng of candidates) {
+    if (!lng) continue
+    const base = lng.split('-')[0]
+    if (SUPPORTED_LANGUAGES.includes(base)) return base
+  }
+
+  return 'en'
+}
+
+export function resolveInitialLanguage(): string {
+  const fromUrl = parseLanguage(new URLSearchParams(window.location.search).get('lang'))
+  if (fromUrl) return fromUrl
+
+  const fromStorage = parseLanguage(localStorage.getItem(STORAGE_KEYS.language))
+  if (fromStorage) return fromStorage
+
+  return detectBrowserLanguage()
 }
 
 function parseYear(value: string | null): number | null {
@@ -56,6 +90,7 @@ export function readPreferencesFromUrl(): Partial<AppPreferences> {
   const params = new URLSearchParams(window.location.search)
   return {
     year: parseYear(params.get('year')) ?? undefined,
+    language: parseLanguage(params.get('lang')) ?? undefined,
     viewMode: parseViewMode(params.get('view')) ?? undefined,
     group: parseGroup(params.get('groep') ?? params.get('group')),
     matchNum: parseMatchNum(params.get('wedstrijd') ?? params.get('match')),
@@ -65,6 +100,7 @@ export function readPreferencesFromUrl(): Partial<AppPreferences> {
 export function readPreferencesFromStorage(): Partial<AppPreferences> {
   return {
     year: parseYear(localStorage.getItem(STORAGE_KEYS.year)) ?? undefined,
+    language: parseLanguage(localStorage.getItem(STORAGE_KEYS.language)) ?? undefined,
     viewMode: parseViewMode(localStorage.getItem(STORAGE_KEYS.viewMode)) ?? undefined,
   }
 }
@@ -76,6 +112,7 @@ export function resolveInitialPreferences(): AppPreferences {
 
   return {
     year: fromUrl.year ?? fromStorage.year ?? envYear,
+    language: fromUrl.language ?? fromStorage.language ?? detectBrowserLanguage(),
     viewMode: fromUrl.viewMode ?? fromStorage.viewMode ?? null,
     group: fromUrl.group ?? null,
     matchNum: fromUrl.matchNum ?? null,
@@ -86,6 +123,7 @@ export function writePreferencesToUrl(prefs: AppPreferences): void {
   const params = new URLSearchParams()
   const defaultYear = getTournamentYear()
   if (prefs.year !== defaultYear) params.set('year', String(prefs.year))
+  if (prefs.language !== 'en') params.set('lang', prefs.language)
   if (prefs.viewMode) params.set('view', prefs.viewMode)
   if (prefs.group) params.set('groep', prefs.group)
   if (prefs.matchNum) params.set('wedstrijd', String(prefs.matchNum))
@@ -99,6 +137,7 @@ export function writePreferencesToUrl(prefs: AppPreferences): void {
 
 export function persistPreferences(prefs: AppPreferences): void {
   localStorage.setItem(STORAGE_KEYS.year, String(prefs.year))
+  localStorage.setItem(STORAGE_KEYS.language, prefs.language)
   if (prefs.viewMode) {
     localStorage.setItem(STORAGE_KEYS.viewMode, prefs.viewMode)
   }
