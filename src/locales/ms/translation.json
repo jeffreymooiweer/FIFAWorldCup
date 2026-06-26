@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "Piala Dunia {{year}} — Siapa juara?",
+    "loading": "Memuatkan Piala Dunia {{year}}..."
+  },
+  "header": {
+    "titleWk": "PD",
+    "subtitle": "Siapa juara?",
+    "lastUpdated": "Kemas kini terakhir: {{time}}"
+  },
+  "group": {
+    "title": "KUMPULAN {{group}}",
+    "phase": "Peringkat kumpulan",
+    "viewStandings": "Lihat kedudukan Kumpulan {{group}}"
+  },
+  "standings": {
+    "title": "Kedudukan",
+    "subtitle": "Piala Dunia",
+    "group": "Kumpulan {{group}}",
+    "backToPoster": "Kembali ke poster",
+    "position": "Kedudukan",
+    "team": "Pasukan",
+    "played": "M",
+    "won": "M",
+    "drawn": "S",
+    "lost": "K",
+    "goalDiff": "SG",
+    "points": "Mata"
+  },
+  "champion": {
+    "label": "JUARA",
+    "unknown": "Belum diketahui",
+    "trophyAlt": "Trofi Piala Dunia FIFA"
+  },
+  "rounds": {
+    "r32": "Pusingan 32",
+    "r16": "Pusingan 16",
+    "qf": "Suku akhir",
+    "sf": "Separuh akhir",
+    "finals": "Akhir",
+    "thirdPlace": "Perlawanan tempat ketiga",
+    "final": "Akhir Piala Dunia"
+  },
+  "match": {
+    "live": "LANGSUNG",
+    "number": "PERLAWANAN {{num}}",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "Sedang berlangsung"
+  },
+  "view": {
+    "ariaLabel": "Paparan",
+    "list": "Senarai",
+    "poster": "Poster"
+  },
+  "zoom": {
+    "ariaLabel": "Zum",
+    "zoomOut": "Zum keluar",
+    "zoomIn": "Zum masuk",
+    "fit": "Muat",
+    "fitAria": "Muat ke skrin"
+  },
+  "errors": {
+    "loadFailed": "Gagal memuatkan data ({{status}})",
+    "unknown": "Ralat tidak diketahui semasa memuatkan"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

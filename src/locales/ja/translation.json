@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "ワールドカップ{{year}} — 優勝するのは？",
+    "loading": "ワールドカップ{{year}}を読み込み中..."
+  },
+  "header": {
+    "titleWk": "W杯",
+    "subtitle": "優勝するのは？",
+    "lastUpdated": "最終更新: {{time}}"
+  },
+  "group": {
+    "title": "グループ{{group}}",
+    "phase": "グループステージ",
+    "viewStandings": "グループ{{group}}の順位表を見る"
+  },
+  "standings": {
+    "title": "順位表",
+    "subtitle": "ワールドカップ",
+    "group": "グループ{{group}}",
+    "backToPoster": "ポスターに戻る",
+    "position": "順位",
+    "team": "チーム",
+    "played": "試",
+    "won": "勝",
+    "drawn": "分",
+    "lost": "敗",
+    "goalDiff": "得失",
+    "points": "点"
+  },
+  "champion": {
+    "label": "優勝",
+    "unknown": "未定",
+    "trophyAlt": "FIFAワールドカップトロフィー"
+  },
+  "rounds": {
+    "r32": "ラウンド32",
+    "r16": "ラウンド16",
+    "qf": "準々決勝",
+    "sf": "準決勝",
+    "finals": "決勝トーナメント",
+    "thirdPlace": "3位決定戦",
+    "final": "ワールドカップ決勝"
+  },
+  "match": {
+    "live": "LIVE",
+    "number": "試合{{num}}",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "進行中"
+  },
+  "view": {
+    "ariaLabel": "表示",
+    "list": "リスト",
+    "poster": "ポスター"
+  },
+  "zoom": {
+    "ariaLabel": "ズーム",
+    "zoomOut": "縮小",
+    "zoomIn": "拡大",
+    "fit": "フィット",
+    "fitAria": "画面に合わせる"
+  },
+  "errors": {
+    "loadFailed": "データを読み込めませんでした ({{status}})",
+    "unknown": "読み込み中に不明なエラーが発生しました"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

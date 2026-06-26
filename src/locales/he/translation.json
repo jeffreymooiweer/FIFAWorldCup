@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "מונדיאל {{year}} — מי יהיה האלוף?",
+    "loading": "טוען את מונדיאל {{year}}..."
+  },
+  "header": {
+    "titleWk": "מונדיאל",
+    "subtitle": "מי יהיה האלוף?",
+    "lastUpdated": "עודכן לאחרונה: {{time}}"
+  },
+  "group": {
+    "title": "בית {{group}}",
+    "phase": "שלב הבתים",
+    "viewStandings": "צפה בטבלת בית {{group}}"
+  },
+  "standings": {
+    "title": "טבלה",
+    "subtitle": "מונדיאל",
+    "group": "בית {{group}}",
+    "backToPoster": "חזרה לפוסטר",
+    "position": "מיקום",
+    "team": "נבחרת",
+    "played": "מ",
+    "won": "נ",
+    "drawn": "ת",
+    "lost": "ה",
+    "goalDiff": "הפרש",
+    "points": "נק"
+  },
+  "champion": {
+    "label": "אלוף",
+    "unknown": "עדיין לא ידוע",
+    "trophyAlt": "גביע המונדיאל של פיפ\"א"
+  },
+  "rounds": {
+    "r32": "שמינית גמר",
+    "r16": "שמינית גמר",
+    "qf": "רבע גמר",
+    "sf": "חצי גמר",
+    "finals": "גמר",
+    "thirdPlace": "משחק על המקום השלישי",
+    "final": "גמר המונדיאל"
+  },
+  "match": {
+    "live": "LIVE",
+    "number": "משחק {{num}}",
+    "versus": "נגד",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "מתקיים כעת"
+  },
+  "view": {
+    "ariaLabel": "תצוגה",
+    "list": "רשימה",
+    "poster": "פוסטר"
+  },
+  "zoom": {
+    "ariaLabel": "זום",
+    "zoomOut": "הקטנה",
+    "zoomIn": "הגדלה",
+    "fit": "התאמה",
+    "fitAria": "התאמה למסך"
+  },
+  "errors": {
+    "loadFailed": "לא ניתן לטעון נתונים ({{status}})",
+    "unknown": "שגיאה לא ידועה בטעינה"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

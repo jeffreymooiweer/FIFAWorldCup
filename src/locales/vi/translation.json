@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "World Cup {{year}} — Ai sẽ vô địch?",
+    "loading": "Đang tải World Cup {{year}}..."
+  },
+  "header": {
+    "titleWk": "WC",
+    "subtitle": "Ai sẽ vô địch?",
+    "lastUpdated": "Cập nhật lần cuối: {{time}}"
+  },
+  "group": {
+    "title": "BẢNG {{group}}",
+    "phase": "Vòng bảng",
+    "viewStandings": "Xem bảng xếp hạng bảng {{group}}"
+  },
+  "standings": {
+    "title": "Bảng xếp hạng",
+    "subtitle": "World Cup",
+    "group": "Bảng {{group}}",
+    "backToPoster": "Quay lại poster",
+    "position": "Hạng",
+    "team": "Đội",
+    "played": "Tr",
+    "won": "T",
+    "drawn": "H",
+    "lost": "B",
+    "goalDiff": "HS",
+    "points": "Đ"
+  },
+  "champion": {
+    "label": "VÔ ĐỊCH",
+    "unknown": "Chưa biết",
+    "trophyAlt": "Cúp FIFA World Cup"
+  },
+  "rounds": {
+    "r32": "Vòng 1/16",
+    "r16": "Vòng 1/8",
+    "qf": "Tứ kết",
+    "sf": "Bán kết",
+    "finals": "Chung kết",
+    "thirdPlace": "Tranh hạng 3",
+    "final": "Chung kết World Cup"
+  },
+  "match": {
+    "live": "TRỰC TIẾP",
+    "number": "TRẬN {{num}}",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "Đang diễn ra"
+  },
+  "view": {
+    "ariaLabel": "Chế độ xem",
+    "list": "Danh sách",
+    "poster": "Poster"
+  },
+  "zoom": {
+    "ariaLabel": "Thu phóng",
+    "zoomOut": "Thu nhỏ",
+    "zoomIn": "Phóng to",
+    "fit": "Vừa khít",
+    "fitAria": "Vừa màn hình"
+  },
+  "errors": {
+    "loadFailed": "Không thể tải dữ liệu ({{status}})",
+    "unknown": "Lỗi không xác định khi tải"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

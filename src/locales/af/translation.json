@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "Wêreldbeker {{year}} — Wie word kampioen?",
+    "loading": "Laai Wêreldbeker {{year}}..."
+  },
+  "header": {
+    "titleWk": "WB",
+    "subtitle": "Wie word kampioen?",
+    "lastUpdated": "Laas opgedateer: {{time}}"
+  },
+  "group": {
+    "title": "GROEP {{group}}",
+    "phase": "Groepfase",
+    "viewStandings": "Sien Groep {{group}} stand"
+  },
+  "standings": {
+    "title": "Stand",
+    "subtitle": "Wêreldbeker",
+    "group": "Groep {{group}}",
+    "backToPoster": "Terug na plakkaat",
+    "position": "Posisie",
+    "team": "Span",
+    "played": "G",
+    "won": "W",
+    "drawn": "G",
+    "lost": "V",
+    "goalDiff": "DS",
+    "points": "Pnt"
+  },
+  "champion": {
+    "label": "KAMPIOEN",
+    "unknown": "Nog nie bekend nie",
+    "trophyAlt": "FIFA Wêreldbeker-trofee"
+  },
+  "rounds": {
+    "r32": "Ronde van 32",
+    "r16": "Ronde van 16",
+    "qf": "Kwarteindstryd",
+    "sf": "Halfeindstryd",
+    "finals": "Finale",
+    "thirdPlace": "Derdeplek-wedstryd",
+    "final": "Wêreldbeker-finale"
+  },
+  "match": {
+    "live": "LIVE",
+    "number": "WEDSTRYD {{num}}",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "Nou aan die gang"
+  },
+  "view": {
+    "ariaLabel": "Weergawe",
+    "list": "Lys",
+    "poster": "Plakkaat"
+  },
+  "zoom": {
+    "ariaLabel": "Zoem",
+    "zoomOut": "Zoem uit",
+    "zoomIn": "Zoem in",
+    "fit": "Pas",
+    "fitAria": "Pas op skerm"
+  },
+  "errors": {
+    "loadFailed": "Kon nie data laai nie ({{status}})",
+    "unknown": "Onbekende fout tydens laai"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

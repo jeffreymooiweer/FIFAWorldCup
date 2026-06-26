@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "SP {{year}} — Tko će biti prvak?",
+    "loading": "Učitavanje SP {{year}}..."
+  },
+  "header": {
+    "titleWk": "SP",
+    "subtitle": "Tko će biti prvak?",
+    "lastUpdated": "Zadnje ažuriranje: {{time}}"
+  },
+  "group": {
+    "title": "GRUPA {{group}}",
+    "phase": "Grupna faza",
+    "viewStandings": "Pogledaj tablicu grupe {{group}}"
+  },
+  "standings": {
+    "title": "Tablica",
+    "subtitle": "Svjetsko prvenstvo",
+    "group": "Grupa {{group}}",
+    "backToPoster": "Natrag na poster",
+    "position": "Mjesto",
+    "team": "Momčad",
+    "played": "O",
+    "won": "P",
+    "drawn": "N",
+    "lost": "I",
+    "goalDiff": "GR",
+    "points": "Bod"
+  },
+  "champion": {
+    "label": "PRVAK",
+    "unknown": "Još nepoznato",
+    "trophyAlt": "Trofej FIFA Svjetskog kupa"
+  },
+  "rounds": {
+    "r32": "Šesnaestina finala",
+    "r16": "Osmina finala",
+    "qf": "Četvrtfinale",
+    "sf": "Polufinale",
+    "finals": "Finale",
+    "thirdPlace": "Utakmica za 3. mjesto",
+    "final": "Finale SP-a"
+  },
+  "match": {
+    "live": "UŽIVO",
+    "number": "UTAKMICA {{num}}",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "U tijeku"
+  },
+  "view": {
+    "ariaLabel": "Prikaz",
+    "list": "Lista",
+    "poster": "Poster"
+  },
+  "zoom": {
+    "ariaLabel": "Zum",
+    "zoomOut": "Umanji",
+    "zoomIn": "Uvećaj",
+    "fit": "Prilagodi",
+    "fitAria": "Prilagodi zaslonu"
+  },
+  "errors": {
+    "loadFailed": "Podaci se nisu mogli učitati ({{status}})",
+    "unknown": "Nepoznata greška pri učitavanju"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "{{year}}世界杯 — 谁将成为冠军？",
+    "loading": "正在加载{{year}}世界杯..."
+  },
+  "header": {
+    "titleWk": "世界杯",
+    "subtitle": "谁将成为冠军？",
+    "lastUpdated": "最后更新：{{time}}"
+  },
+  "group": {
+    "title": "{{group}}组",
+    "phase": "小组赛",
+    "viewStandings": "查看{{group}}组积分榜"
+  },
+  "standings": {
+    "title": "积分榜",
+    "subtitle": "世界杯",
+    "group": "{{group}}组",
+    "backToPoster": "返回海报",
+    "position": "排名",
+    "team": "球队",
+    "played": "赛",
+    "won": "胜",
+    "drawn": "平",
+    "lost": "负",
+    "goalDiff": "净胜",
+    "points": "分"
+  },
+  "champion": {
+    "label": "冠军",
+    "unknown": "尚未确定",
+    "trophyAlt": "国际足联世界杯奖杯"
+  },
+  "rounds": {
+    "r32": "32强",
+    "r16": "16强",
+    "qf": "四分之一决赛",
+    "sf": "半决赛",
+    "finals": "决赛阶段",
+    "thirdPlace": "三四名决赛",
+    "final": "世界杯决赛"
+  },
+  "match": {
+    "live": "直播",
+    "number": "第{{num}}场",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "正在进行"
+  },
+  "view": {
+    "ariaLabel": "视图",
+    "list": "列表",
+    "poster": "海报"
+  },
+  "zoom": {
+    "ariaLabel": "缩放",
+    "zoomOut": "缩小",
+    "zoomIn": "放大",
+    "fit": "适应",
+    "fitAria": "适应屏幕"
+  },
+  "errors": {
+    "loadFailed": "无法加载数据 ({{status}})",
+    "unknown": "加载时发生未知错误"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

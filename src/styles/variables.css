@@ -1,0 +1,71 @@
+:root {
+  --bg-deep: #0b1a3a;
+  --bg-glow: #1a4a8a;
+  --theme-bg-body: #060e1f;
+  --theme-viewport-inner: #12356b;
+  --theme-viewport-mid: #060e1f;
+  --theme-viewport-outer: #030810;
+  --theme-poster-glow: rgba(40, 120, 220, 0.35);
+  --theme-poster-top: #0d2248;
+  --theme-poster-bottom: #081530;
+  --text-primary: #ffffff;
+  --text-muted: #a8b8d8;
+  --box-bg: rgba(255, 255, 255, 0.95);
+  --box-border: rgba(255, 255, 255, 0.2);
+  --orange: #ff6600;
+  --blue: #21468b;
+  --winner: #ff8c00;
+  --placeholder: #8a9bb8;
+  --connector: rgba(255, 255, 255, 0.35);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --poster-width: fit-content;
+  --bracket-col-gap: 1.25rem;
+  --poster-section-gap: 2rem;
+}
+
+[data-color-scheme='light'] {
+  --text-primary: #0f172a;
+  --text-muted: #475569;
+  --box-bg: rgba(255, 255, 255, 0.98);
+  --box-border: rgba(15, 23, 42, 0.12);
+  --placeholder: #64748b;
+  --connector: rgba(15, 23, 42, 0.2);
+}
+
+[data-color-scheme='light'] .match-box {
+  color: #1a2744;
+}
+
+[data-color-scheme='light'] .standings-card {
+  background: #f4f4f5;
+  color: #18181b;
+}
+
+[data-color-scheme='light'] .standings-card__subtitle,
+[data-color-scheme='light'] .standings-card__group,
+[data-color-scheme='light'] .standings-table thead th {
+  color: #71717a;
+}
+
+[data-color-scheme='light'] .standings-table tbody td {
+  color: #27272a;
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--theme-bg-body);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}

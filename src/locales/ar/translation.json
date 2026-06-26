@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "كأس العالم {{year}} — من سيكون البطل؟",
+    "loading": "جارٍ تحميل كأس العالم {{year}}..."
+  },
+  "header": {
+    "titleWk": "كأس العالم",
+    "subtitle": "من سيكون البطل؟",
+    "lastUpdated": "آخر تحديث: {{time}}"
+  },
+  "group": {
+    "title": "المجموعة {{group}}",
+    "phase": "مرحلة المجموعات",
+    "viewStandings": "عرض ترتيب المجموعة {{group}}"
+  },
+  "standings": {
+    "title": "الترتيب",
+    "subtitle": "كأس العالم",
+    "group": "المجموعة {{group}}",
+    "backToPoster": "العودة إلى الملصق",
+    "position": "المركز",
+    "team": "الفريق",
+    "played": "ل",
+    "won": "ف",
+    "drawn": "ت",
+    "lost": "خ",
+    "goalDiff": "فأ",
+    "points": "ن"
+  },
+  "champion": {
+    "label": "البطل",
+    "unknown": "غير معروف بعد",
+    "trophyAlt": "كأس العالم FIFA"
+  },
+  "rounds": {
+    "r32": "دور الـ32",
+    "r16": "دور الـ16",
+    "qf": "ربع النهائي",
+    "sf": "نصف النهائي",
+    "finals": "النهائيات",
+    "thirdPlace": "مباراة المركز الثالث",
+    "final": "نهائي كأس العالم"
+  },
+  "match": {
+    "live": "مباشر",
+    "number": "مباراة {{num}}",
+    "versus": "ضد",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "جارية الآن"
+  },
+  "view": {
+    "ariaLabel": "العرض",
+    "list": "قائمة",
+    "poster": "ملصق"
+  },
+  "zoom": {
+    "ariaLabel": "تكبير",
+    "zoomOut": "تصغير",
+    "zoomIn": "تكبير",
+    "fit": "ملاءمة",
+    "fitAria": "ملاءمة الشاشة"
+  },
+  "errors": {
+    "loadFailed": "تعذر تحميل البيانات ({{status}})",
+    "unknown": "خطأ غير معروف أثناء التحميل"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}

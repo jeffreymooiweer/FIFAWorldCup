@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "VM {{year}} — Hvem bliver mester?",
+    "loading": "Indlæser VM {{year}}..."
+  },
+  "header": {
+    "titleWk": "VM",
+    "subtitle": "Hvem bliver mester?",
+    "lastUpdated": "Sidst opdateret: {{time}}"
+  },
+  "group": {
+    "title": "GRUPPE {{group}}",
+    "phase": "Gruppespil",
+    "viewStandings": "Se stilling for gruppe {{group}}"
+  },
+  "standings": {
+    "title": "Stilling",
+    "subtitle": "VM i fodbold",
+    "group": "Gruppe {{group}}",
+    "backToPoster": "Tilbage til plakat",
+    "position": "Placering",
+    "team": "Hold",
+    "played": "K",
+    "won": "V",
+    "drawn": "U",
+    "lost": "T",
+    "goalDiff": "MF",
+    "points": "P"
+  },
+  "champion": {
+    "label": "MESTER",
+    "unknown": "Endnu ukendt",
+    "trophyAlt": "FIFA VM-pokal"
+  },
+  "rounds": {
+    "r32": "Seertendedelsfinale",
+    "r16": "Ottendedelsfinale",
+    "qf": "Kvartfinale",
+    "sf": "Semifinale",
+    "finals": "Finaler",
+    "thirdPlace": "Bronzekamp",
+    "final": "VM-finale"
+  },
+  "match": {
+    "live": "LIVE",
+    "number": "KAMP {{num}}",
+    "versus": "vs",
+    "timeSuffix": ""
+  },
+  "live": {
+    "nowPlaying": "I gang nu"
+  },
+  "view": {
+    "ariaLabel": "Visning",
+    "list": "Liste",
+    "poster": "Plakat"
+  },
+  "zoom": {
+    "ariaLabel": "Zoom",
+    "zoomOut": "Zoom ud",
+    "zoomIn": "Zoom ind",
+    "fit": "Tilpas",
+    "fitAria": "Tilpas til skærm"
+  },
+  "errors": {
+    "loadFailed": "Kunne ikke indlæse data ({{status}})",
+    "unknown": "Ukendt fejl under indlæsning"
+  },
+  "settings": {
+    "year": "Edition",
+    "language": "Language",
+    "colorMode": "Display mode",
+    "colorDark": "Dark",
+    "colorLight": "Light",
+    "colorSystem": "System",
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied!"
+  },
+  "meta": {
+    "sourceLive": "Live data from openfootball",
+    "sourceCache": "Cached data (offline)",
+    "sourceBundled": "Bundled fallback data",
+    "structureWarning": "Unusual tournament format detected — display may be incomplete.",
+    "noGroups": "No groups found in data.",
+    "manyGroups": "Many groups detected — layout adjusted automatically.",
+    "unknownRounds": "Unknown knockout rounds in data.",
+    "noKnockout": "No knockout matches found yet."
+  },
+  "countdown": {
+    "label": "Next match in",
+    "days": "{{days}}d {{hours}}h {{minutes}}m",
+    "soon": "Starting soon"
+  },
+  "hosts": {
+    "label": "Hosts"
+  },
+  "venues": {
+    "title": "Venues"
+  },
+  "netherlands": {
+    "badge": "ORANJE"
+  },
+  "share": {
+    "title": "World Cup {{year}} bracket",
+    "text": "Check out the World Cup {{year}} bracket!"
+  }
+}
