@@ -1,11 +1,13 @@
+import type { WorldCupData } from '../types'
+import { parseTournament, splitMatches } from './parseTournament'
 import { fetchWithTimeout } from './fetchWithTimeout'
 import { getBundledWorldCupUrl, getLiveWorldCupUrl } from './worldCupDataUrls'
 import {
   getMaxSelectableYear,
-  listPastWorldCupYears,
+  listPastWorldCupYearsToProbe,
 } from './worldCupYears'
 
-const CACHE_KEY = 'wk-available-years-v1'
+const CACHE_KEY = 'wk-available-years-v2'
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
 const PROBE_TIMEOUT_MS = 4000
 const PROBE_CONCURRENCY = 3
@@ -41,11 +43,29 @@ export function getCachedAvailableYears(): number[] | null {
   return readCache()
 }
 
-function hasDataCache(year: number): boolean {
+export function removeYearFromCache(year: number): void {
+  const cached = readCache()
+  if (!cached?.includes(year)) return
+  writeCache(cached.filter((y) => y !== year))
+}
+
+function isParseableWorldCupData(data: WorldCupData): boolean {
   try {
-    return localStorage.getItem(`wk-data-cache-${year}`) !== null
+    const matches = parseTournament(data)
+    const { groupMatches } = splitMatches(matches)
+    return groupMatches.length > 0
   } catch {
     return false
+  }
+}
+
+async function readCachedWorldCupData(year: number): Promise<WorldCupData | null> {
+  try {
+    const raw = localStorage.getItem(`wk-data-cache-${year}`)
+    if (!raw) return null
+    return JSON.parse(raw) as WorldCupData
+  } catch {
+    return null
   }
 }
 
@@ -61,22 +81,34 @@ async function hasBundledData(year: number): Promise<boolean> {
   }
 }
 
-async function hasLiveData(year: number): Promise<boolean> {
+export async function yearHasData(year: number): Promise<boolean> {
+  const cachedData = await readCachedWorldCupData(year)
+  if (cachedData && isParseableWorldCupData(cachedData)) return true
+
+  if (await hasBundledData(year)) {
+    try {
+      const response = await fetchWithTimeout(getBundledWorldCupUrl(year), {
+        timeoutMs: PROBE_TIMEOUT_MS,
+      })
+      if (!response.ok) return false
+      const data = (await response.json()) as WorldCupData
+      return isParseableWorldCupData(data)
+    } catch {
+      return false
+    }
+  }
+
   try {
     const response = await fetchWithTimeout(getLiveWorldCupUrl(year), {
       method: 'GET',
       timeoutMs: PROBE_TIMEOUT_MS,
     })
-    return response.ok
+    if (!response.ok) return false
+    const data = (await response.json()) as WorldCupData
+    return isParseableWorldCupData(data)
   } catch {
     return false
   }
-}
-
-export async function yearHasData(year: number): Promise<boolean> {
-  if (hasDataCache(year)) return true
-  if (await hasBundledData(year)) return true
-  return hasLiveData(year)
 }
 
 async function mapPool<T, R>(
@@ -106,7 +138,7 @@ export async function discoverAvailableYears(): Promise<number[]> {
   const currentEdition = getMaxSelectableYear()
   const available = new Set<number>([currentEdition])
 
-  const pastYears = listPastWorldCupYears()
+  const pastYears = listPastWorldCupYearsToProbe()
   const checks = await mapPool(pastYears, PROBE_CONCURRENCY, async (year) =>
     (await yearHasData(year)) ? year : null,
   )

@@ -27,5 +27,12 @@ export function isFutureWorldCupYear(year: number): boolean {
 
 export function listPastWorldCupYears(): number[] {
   const max = getMaxSelectableYear()
-  return listWorldCupYears().filter((year) => year < max)
+  return listWorldCupYears()
+    .filter((year) => year < max)
+    .reverse()
+}
+
+/** Recent past editions to probe for data (newest first). */
+export function listPastWorldCupYearsToProbe(limit = 10): number[] {
+  return listPastWorldCupYears().slice(0, limit)
 }

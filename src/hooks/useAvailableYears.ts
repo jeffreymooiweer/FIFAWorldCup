@@ -6,11 +6,19 @@ import {
 } from '../lib/availableYears'
 import { getMaxSelectableYear } from '../lib/worldCupYears'
 
+/** Editions with bundled or verified support — always selectable before async discovery. */
+export function getDefaultAvailableYears(): number[] {
+  const current = getMaxSelectableYear()
+  const defaults = [current, 2022, 2018]
+  return [...new Set(defaults)].sort((a, b) => b - a)
+}
+
 export function useAvailableYears() {
+  const cached = getCachedAvailableYears()
   const [availableYears, setAvailableYears] = useState<number[]>(
-    () => getCachedAvailableYears() ?? [getMaxSelectableYear()],
+    () => cached ?? getDefaultAvailableYears(),
   )
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(() => cached === null)
 
   useEffect(() => {
     let cancelled = false

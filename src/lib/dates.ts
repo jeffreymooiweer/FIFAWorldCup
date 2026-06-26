@@ -6,9 +6,15 @@ function parseUtcOffset(time: string): number {
   return Number(match[1])
 }
 
-export function parseMatchDateTime(date: string, time: string): Date {
-  const [hours, minutes] = time.split(' ')[0].split(':').map(Number)
-  const offsetHours = parseUtcOffset(time)
+export function parseMatchDateTime(date: string, time?: string): Date {
+  const timePart = time?.trim()
+  if (!timePart) {
+    const [year, month, day] = date.split('-').map(Number)
+    return new Date(Date.UTC(year, month - 1, day, 12, 0))
+  }
+
+  const [hours, minutes] = timePart.split(' ')[0].split(':').map(Number)
+  const offsetHours = parseUtcOffset(timePart)
   const utcMs = Date.UTC(
     Number(date.slice(0, 4)),
     Number(date.slice(5, 7)) - 1,
@@ -19,7 +25,11 @@ export function parseMatchDateTime(date: string, time: string): Date {
   return new Date(utcMs)
 }
 
-export function formatMatchDateTime(date: string, time: string): string {
+export function formatMatchDateTime(date: string, time?: string): string {
+  if (!time?.trim()) {
+    return formatShortDate(date)
+  }
+
   const dt = parseMatchDateTime(date, time)
   const locale = getDateLocale(i18n.language)
   const formatter = new Intl.DateTimeFormat(locale, {

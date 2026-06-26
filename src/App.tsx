@@ -12,6 +12,7 @@ import { useDocumentTitle } from './hooks/useDocumentTitle'
 import { useTournamentData } from './hooks/useTournamentData'
 import { useViewMode } from './hooks/useViewMode'
 import type { ViewMode } from './hooks/useViewMode'
+import { removeYearFromCache } from './lib/availableYears'
 import { clampYear } from './lib/preferences'
 import { isFutureWorldCupYear, getMaxSelectableYear } from './lib/worldCupYears'
 
@@ -49,6 +50,13 @@ export default function App() {
     structureWarnings,
   } = useTournamentData(prefs.year, edition)
 
+  useEffect(() => {
+    if (loading || !error) return
+    removeYearFromCache(prefs.year)
+    const fallback = clampYear(getMaxSelectableYear(), availableYears)
+    if (prefs.year !== fallback) setYear(fallback)
+  }, [availableYears, error, loading, prefs.year, setYear])
+
   useDocumentTitle(prefs.year)
 
   const { viewMode, setViewMode } = useViewMode(prefs.viewMode)
@@ -62,10 +70,24 @@ export default function App() {
   )
 
   const allMatches = [...groupMatches, ...knockoutMatches]
+  const showLoadingScreen = loading && groupMatches.length === 0 && !error
 
-  if (loading && groupMatches.length === 0) {
+  const dock = (
+    <AppDock
+      year={prefs.year}
+      availableYears={availableYears}
+      viewMode={viewMode}
+      onYearChange={setYear}
+      onViewModeChange={handleViewModeChange}
+    />
+  )
+
+  if (showLoadingScreen) {
     return (
-      <div className="loading-screen">{t('app.loading', { year: prefs.year })}</div>
+      <div className="app-shell app-shell--loading">
+        <div className="loading-screen">{t('app.loading', { year: prefs.year })}</div>
+        {dock}
+      </div>
     )
   }
 
@@ -108,14 +130,7 @@ export default function App() {
         />
       )}
 
-      <AppDock
-        year={prefs.year}
-        availableYears={availableYears}
-        yearsLoading={yearsLoading}
-        viewMode={viewMode}
-        onYearChange={setYear}
-        onViewModeChange={handleViewModeChange}
-      />
+      {dock}
 
       <DataAttribution source={dataSource} lastUpdated={lastUpdated} />
     </div>

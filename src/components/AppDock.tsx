@@ -6,7 +6,6 @@ import { ViewToggle } from './ViewToggle'
 interface AppDockProps {
   year: number
   availableYears: number[]
-  yearsLoading?: boolean
   viewMode: ViewMode
   onYearChange: (year: number) => void
   onViewModeChange: (mode: ViewMode) => void
@@ -15,7 +14,6 @@ interface AppDockProps {
 export function AppDock({
   year,
   availableYears,
-  yearsLoading = false,
   viewMode,
   onYearChange,
   onViewModeChange,
@@ -23,18 +21,28 @@ export function AppDock({
   const { t } = useTranslation()
 
   const yearIndex = availableYears.indexOf(year)
-  const canGoNewer = yearIndex > 0
-  const canGoOlder = yearIndex >= 0 && yearIndex < availableYears.length - 1
+  const canGoNewer = yearIndex > 0 || (yearIndex === -1 && availableYears.length > 0)
+  const canGoOlder =
+    (yearIndex >= 0 && yearIndex < availableYears.length - 1) ||
+    (yearIndex === -1 && availableYears.length > 0)
 
   const goNewer = useCallback(() => {
-    if (!canGoNewer) return
-    onYearChange(availableYears[yearIndex - 1])
-  }, [availableYears, canGoNewer, onYearChange, yearIndex])
+    if (availableYears.length === 0) return
+    if (yearIndex > 0) {
+      onYearChange(availableYears[yearIndex - 1])
+      return
+    }
+    if (yearIndex === -1) onYearChange(availableYears[0])
+  }, [availableYears, onYearChange, yearIndex])
 
   const goOlder = useCallback(() => {
-    if (!canGoOlder) return
-    onYearChange(availableYears[yearIndex + 1])
-  }, [availableYears, canGoOlder, onYearChange, yearIndex])
+    if (availableYears.length === 0) return
+    if (yearIndex >= 0 && yearIndex < availableYears.length - 1) {
+      onYearChange(availableYears[yearIndex + 1])
+      return
+    }
+    if (yearIndex === -1) onYearChange(availableYears[availableYears.length - 1])
+  }, [availableYears, onYearChange, yearIndex])
 
   return (
     <div className="app-dock" role="toolbar" aria-label={t('dock.ariaLabel')}>
@@ -43,7 +51,7 @@ export function AppDock({
           type="button"
           className="app-dock__year-btn"
           onClick={goNewer}
-          disabled={yearsLoading || !canGoNewer}
+          disabled={!canGoNewer}
           aria-label={t('dock.newerYear')}
         >
           ‹
@@ -53,7 +61,7 @@ export function AppDock({
           type="button"
           className="app-dock__year-btn"
           onClick={goOlder}
-          disabled={yearsLoading || !canGoOlder}
+          disabled={!canGoOlder}
           aria-label={t('dock.olderYear')}
         >
           ›

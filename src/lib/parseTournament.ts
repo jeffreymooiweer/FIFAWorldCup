@@ -32,7 +32,7 @@ function normalizeMatch(raw: RawMatch, index: number, knockoutStart: number): Ma
     num: raw.num ?? (raw.group ? null : knockoutStart + index),
     round: raw.round,
     date: raw.date,
-    time: raw.time,
+    time: raw.time ?? '',
     team1: raw.team1,
     team2: raw.team2,
     score,

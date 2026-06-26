@@ -15,6 +15,8 @@ import { TournamentLoadError } from '../types/errors'
 
 const POLL_INTERVAL_MS = 5 * 60 * 1000
 
+const EMPTY_LAYOUT = inferKnockoutLayout([])
+
 export interface UseTournamentResult {
   groups: string[]
   groupsLeft: string[]
@@ -40,9 +42,7 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
   const [resolvedKnockout, setResolvedKnockout] = useState<Map<number, ResolvedMatch>>(
     new Map(),
   )
-  const [knockoutLayout, setKnockoutLayout] = useState<KnockoutLayout>(() =>
-    inferKnockoutLayout([]),
-  )
+  const [knockoutLayout, setKnockoutLayout] = useState<KnockoutLayout>(EMPTY_LAYOUT)
   const [champion, setChampion] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [loading, setLoading] = useState(true)
@@ -60,11 +60,17 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
     [edition, knockoutLayout],
   )
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (signal: { cancelled: boolean }) => {
     try {
       const result = await fetchWorldCupDataWithFallback(year)
+      if (signal.cancelled) return
+
       const matches = parseTournament(result.data)
       const { groupMatches: groups, knockoutMatches: knockouts } = splitMatches(matches)
+      if (groups.length === 0) {
+        throw new TournamentLoadError('loadFailed', { status: 'empty' })
+      }
+
       const layout = inferKnockoutLayout(knockouts)
       const computedStandings = calculateStandings(groups)
       const resolved = resolveKnockoutBracket(knockouts, computedStandings)
@@ -80,23 +86,43 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
       setStructureWarnings(validateTournamentStructure(result.data))
       setError(null)
     } catch (err) {
+      if (signal.cancelled) return
       if (err instanceof TournamentLoadError) {
         setError({ key: err.key, params: err.params })
       } else {
         setError({ key: 'unknown' })
       }
+      setGroupMatches([])
+      setKnockoutMatches([])
+      setKnockoutLayout(EMPTY_LAYOUT)
+      setStandings([])
+      setResolvedKnockout(new Map())
+      setChampion(null)
     } finally {
-      setLoading(false)
+      if (!signal.cancelled) setLoading(false)
     }
   }, [year])
 
   useEffect(() => {
+    const signal = { cancelled: false }
     setLoading(true)
-    void loadData()
+    setError(null)
+    setGroupMatches([])
+    setKnockoutMatches([])
+    setKnockoutLayout(EMPTY_LAYOUT)
+    setStandings([])
+    setResolvedKnockout(new Map())
+    setChampion(null)
+
+    void loadData(signal)
     const interval = window.setInterval(() => {
-      void loadData()
+      void loadData(signal)
     }, POLL_INTERVAL_MS)
-    return () => window.clearInterval(interval)
+
+    return () => {
+      signal.cancelled = true
+      window.clearInterval(interval)
+    }
   }, [loadData])
 
   return {

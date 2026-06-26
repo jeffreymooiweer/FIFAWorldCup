@@ -155,5 +155,8 @@ export function getGroupMatchesForGroup(
 ): Match[] {
   return groupMatches
     .filter((m) => m.group === group)
-    .sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
+    .sort(
+      (a, b) =>
+        a.date.localeCompare(b.date) || (a.time ?? '').localeCompare(b.time ?? ''),
+    )
 }
