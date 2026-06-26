@@ -10,11 +10,11 @@ test('deep link opens group in URL', async ({ page }) => {
   await expect(page).toHaveURL(/groep=A/)
 })
 
-test('edition selector lists past years only', async ({ page }) => {
+test('year stepper switches edition', async ({ page }) => {
   await page.goto('/')
-  const select = page.locator('.app-toolbar__select').first()
-  await expect(select.locator('option[value="2030"]')).toHaveCount(0)
-  await expect(select.locator('option[value="2022"]')).toHaveCount(1)
-  await select.selectOption('2022')
+  await expect(page.locator('.app-dock__year-value')).toHaveText('2026')
+  await expect(page.locator('.app-dock__year-btn').last()).toBeEnabled()
+  await page.locator('.app-dock__year-btn').last().click()
   await expect(page.locator('.header__title-year')).toHaveText('2022')
+  await expect(page.locator('.app-dock__year-value')).toHaveText('2022')
 })

@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AppToolbar } from './components/AppToolbar'
+import { AppDock } from './components/AppDock'
 import { BracketPoster } from './components/BracketPoster'
 import { DataAttribution } from './components/DataAttribution'
 import { MobileListView } from './components/MobileListView'
@@ -17,15 +17,7 @@ import { isFutureWorldCupYear, getMaxSelectableYear } from './lib/worldCupYears'
 
 export default function App() {
   const { t } = useTranslation()
-  const {
-    prefs,
-    edition,
-    setYear,
-    setLanguage,
-    setColorScheme,
-    setViewModePref,
-    setGroup,
-  } = useAppPreferences()
+  const { prefs, edition, setYear, setViewModePref, setGroup } = useAppPreferences()
 
   const { availableYears, loading: yearsLoading } = useAvailableYears()
 
@@ -59,7 +51,7 @@ export default function App() {
 
   useDocumentTitle(prefs.year)
 
-  const { viewMode, setViewMode, showViewToggle } = useViewMode(prefs.viewMode)
+  const { viewMode, setViewMode } = useViewMode(prefs.viewMode)
 
   const handleViewModeChange = useCallback(
     (mode: ViewMode) => {
@@ -79,19 +71,6 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <AppToolbar
-        prefs={prefs}
-        year={prefs.year}
-        availableYears={availableYears}
-        yearsLoading={yearsLoading}
-        showViewToggle={showViewToggle}
-        viewMode={viewMode}
-        onYearChange={setYear}
-        onLanguageChange={setLanguage}
-        onColorSchemeChange={setColorScheme}
-        onViewModeChange={handleViewModeChange}
-      />
-
       <NextMatchCountdown matches={allMatches} />
       <StructureBanner warnings={structureWarnings} />
 
@@ -128,6 +107,15 @@ export default function App() {
           highlightMatchNum={prefs.matchNum}
         />
       )}
+
+      <AppDock
+        year={prefs.year}
+        availableYears={availableYears}
+        yearsLoading={yearsLoading}
+        viewMode={viewMode}
+        onYearChange={setYear}
+        onViewModeChange={handleViewModeChange}
+      />
 
       <DataAttribution source={dataSource} lastUpdated={lastUpdated} />
     </div>

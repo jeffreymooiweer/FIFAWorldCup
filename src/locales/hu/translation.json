@@ -67,15 +67,12 @@
     "unknown": "Ismeretlen hiba betöltéskor"
   },
   "settings": {
-    "year": "Edition",
-    "language": "Language",
-    "colorMode": "Display mode",
-    "colorDark": "Dark",
-    "colorLight": "Light",
-    "colorSystem": "System",
-    "share": "Share",
-    "print": "Print",
-    "copied": "Link copied!"
+    "year": "Edition"
+  },
+  "dock": {
+    "ariaLabel": "Edition and view",
+    "newerYear": "Newer edition",
+    "olderYear": "Older edition"
   },
   "meta": {
     "sourceLive": "Live data from openfootball",
@@ -100,9 +97,5 @@
   },
   "netherlands": {
     "badge": "ORANJE"
-  },
-  "share": {
-    "title": "World Cup {{year}} bracket",
-    "text": "Check out the World Cup {{year}} bracket!"
   }
 }

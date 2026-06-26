@@ -465,6 +465,7 @@
 
 .app-shell {
   min-height: 100vh;
+  padding-bottom: 4.5rem;
 }
 
 .view-toggle {
@@ -541,7 +542,7 @@
 
 .mobile-list-view {
   min-height: 100vh;
-  padding: 4.5rem 1rem 2rem;
+  padding: 2rem 1rem 5rem;
   background: radial-gradient(
     circle at 50% 0%,
     var(--theme-viewport-inner) 0%,
@@ -771,147 +772,68 @@
   flex-shrink: 0;
 }
 
-/* App toolbar & settings */
-.app-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 150;
+/* Floating controls */
+.app-dock {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  z-index: 120;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-  transform: none;
-  padding: 0.65rem 1rem;
+  align-items: center;
+  gap: 0.65rem;
+  transform: translateX(-50%);
+  padding: 0.35rem 0.45rem;
   background: rgba(8, 18, 40, 0.94);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(8px);
 }
 
-[data-color-scheme='light'] .app-toolbar {
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom-color: rgba(0, 0, 0, 0.1);
-}
-
-.app-toolbar__row {
+.app-dock__year {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 0.65rem;
-  width: 100%;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.1rem 0.2rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  padding-right: 0.65rem;
 }
 
-.app-toolbar__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  flex: 1 1 7rem;
-  min-width: 5.5rem;
-  max-width: 11rem;
-}
-
-.app-toolbar__label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
-.app-toolbar__select,
-.app-toolbar__btn {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.app-dock__year-btn {
+  width: 1.85rem;
+  height: 1.85rem;
+  border: none;
+  border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
-  padding: 0.4rem 0.55rem;
-  min-height: 2rem;
-}
-
-[data-color-scheme='light'] .app-toolbar__select,
-[data-color-scheme='light'] .app-toolbar__btn {
-  border-color: rgba(15, 23, 42, 0.18);
-  background: #fff;
-  color: #0f172a;
-}
-
-.app-toolbar__btn {
+  font-size: 1.1rem;
+  line-height: 1;
   cursor: pointer;
-  white-space: nowrap;
-  font-weight: 600;
 }
 
-.app-toolbar__btn:hover {
-  border-color: var(--orange);
+.app-dock__year-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
 }
 
-.app-toolbar__btn--copied {
-  border-color: #22c55e;
-  color: #22c55e;
+.app-dock__year-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
-.app-toolbar__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-left: auto;
-  align-items: flex-end;
+.app-dock__year-value {
+  min-width: 3rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
-.app-toolbar .view-toggle {
-  align-self: center;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-[data-color-scheme='light'] .view-toggle {
-  background: #f1f5f9;
-  border-color: rgba(15, 23, 42, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.app-toolbar__toast {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  right: 1rem;
-  z-index: 160;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  max-width: min(22rem, calc(100vw - 2rem));
-  padding: 0.65rem 0.75rem;
-  border-radius: 8px;
-  background: #1e293b;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  font-size: 0.78rem;
-  color: #f8fafc;
-}
-
-[data-color-scheme='light'] .app-toolbar__toast {
-  background: #fff;
-  border-color: rgba(15, 23, 42, 0.12);
-  color: #0f172a;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.app-toolbar__toast-label {
-  font-weight: 600;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--orange);
-}
-
-.app-toolbar__toast-url {
-  word-break: break-all;
-  font-family: ui-monospace, monospace;
-  font-size: 0.72rem;
-  opacity: 0.9;
-}
-
-.app-toolbar__row--primary {
-  position: relative;
+.app-dock .view-toggle {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
 .countdown-banner {
@@ -1031,8 +953,7 @@
 }
 
 @media print {
-  .app-toolbar,
-  .view-toggle,
+  .app-dock,
   .zoom-controls,
   .structure-banner,
   .countdown-banner,

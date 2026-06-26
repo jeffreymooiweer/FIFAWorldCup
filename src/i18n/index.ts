@@ -53,7 +53,8 @@ i18n
     ns: ['translation', 'teams'],
     interpolation: { escapeValue: false },
     detection: {
-      order: ['navigator', 'htmlTag'],
+      order: ['querystring', 'navigator', 'htmlTag'],
+      lookupQuerystring: 'lang',
       caches: [],
     },
   })

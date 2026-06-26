@@ -67,15 +67,12 @@
     "unknown": "Onbekende fout bij laden"
   },
   "settings": {
-    "year": "Editie",
-    "language": "Taal",
-    "colorMode": "Weergave",
-    "colorDark": "Donker",
-    "colorLight": "Licht",
-    "colorSystem": "Systeem",
-    "share": "Delen",
-    "print": "Printen",
-    "copied": "Link gekopieerd!"
+    "year": "Editie"
+  },
+  "dock": {
+    "ariaLabel": "Editie en weergave",
+    "newerYear": "Nieuwere editie",
+    "olderYear": "Oudere editie"
   },
   "meta": {
     "sourceLive": "Live data van openfootball",
@@ -100,9 +97,5 @@
   },
   "netherlands": {
     "badge": "ORANJE"
-  },
-  "share": {
-    "title": "WK {{year}} schema",
-    "text": "Bekijk het WK {{year}} schema!"
   }
 }

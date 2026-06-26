@@ -43,7 +43,6 @@ export function useViewMode(initialFromPrefs: ViewMode | null = null) {
     viewMode,
     setViewMode,
     isMobile,
-    showViewToggle: isMobile,
   }
 }
 

@@ -2,14 +2,11 @@
 export const UI_EXTRAS = {
   settings: {
     year: 'Edition',
-    language: 'Language',
-    colorMode: 'Display mode',
-    colorDark: 'Dark',
-    colorLight: 'Light',
-    colorSystem: 'System',
-    share: 'Share',
-    print: 'Print',
-    copied: 'Link copied!',
+  },
+  dock: {
+    ariaLabel: 'Edition and view',
+    newerYear: 'Newer edition',
+    olderYear: 'Older edition',
   },
   meta: {
     sourceLive: 'Live data from openfootball',
@@ -35,23 +32,16 @@ export const UI_EXTRAS = {
   netherlands: {
     badge: 'ORANJE',
   },
-  share: {
-    title: 'World Cup {{year}} bracket',
-    text: 'Check out the World Cup {{year}} bracket!',
-  },
 }
 
 export const UI_EXTRAS_NL = {
   settings: {
     year: 'Editie',
-    language: 'Taal',
-    colorMode: 'Weergave',
-    colorDark: 'Donker',
-    colorLight: 'Licht',
-    colorSystem: 'Systeem',
-    share: 'Delen',
-    print: 'Printen',
-    copied: 'Link gekopieerd!',
+  },
+  dock: {
+    ariaLabel: 'Editie en weergave',
+    newerYear: 'Nieuwere editie',
+    olderYear: 'Oudere editie',
   },
   meta: {
     sourceLive: 'Live data van openfootball',
@@ -76,9 +66,5 @@ export const UI_EXTRAS_NL = {
   },
   netherlands: {
     badge: 'ORANJE',
-  },
-  share: {
-    title: 'WK {{year}} schema',
-    text: 'Bekijk het WK {{year}} schema!',
   },
 }
