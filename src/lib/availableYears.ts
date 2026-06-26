@@ -6,10 +6,12 @@ import {
   getMaxSelectableYear,
   listPastWorldCupYearsToProbe,
 } from './worldCupYears'
+import { listFjelstulYears } from './sources/fjelstul'
+import { isProviderEnabled } from './sources/config'
 
-const CACHE_KEY = 'wk-available-years-v2'
+const CACHE_KEY = 'wk-available-years-v3'
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
-const PROBE_TIMEOUT_MS = 4000
+const PROBE_TIMEOUT_MS = 8000
 const PROBE_CONCURRENCY = 3
 const DISCOVERY_DELAY_MS = 1500
 
@@ -59,16 +61,6 @@ function isParseableWorldCupData(data: WorldCupData): boolean {
   }
 }
 
-async function readCachedWorldCupData(year: number): Promise<WorldCupData | null> {
-  try {
-    const raw = localStorage.getItem(`wk-data-cache-${year}`)
-    if (!raw) return null
-    return JSON.parse(raw) as WorldCupData
-  } catch {
-    return null
-  }
-}
-
 async function hasBundledData(year: number): Promise<boolean> {
   try {
     const response = await fetchWithTimeout(getBundledWorldCupUrl(year), {
@@ -81,23 +73,7 @@ async function hasBundledData(year: number): Promise<boolean> {
   }
 }
 
-export async function yearHasData(year: number): Promise<boolean> {
-  const cachedData = await readCachedWorldCupData(year)
-  if (cachedData && isParseableWorldCupData(cachedData)) return true
-
-  if (await hasBundledData(year)) {
-    try {
-      const response = await fetchWithTimeout(getBundledWorldCupUrl(year), {
-        timeoutMs: PROBE_TIMEOUT_MS,
-      })
-      if (!response.ok) return false
-      const data = (await response.json()) as WorldCupData
-      return isParseableWorldCupData(data)
-    } catch {
-      return false
-    }
-  }
-
+async function yearHasOpenFootballData(year: number): Promise<boolean> {
   try {
     const response = await fetchWithTimeout(getLiveWorldCupUrl(year), {
       method: 'GET',
@@ -109,6 +85,13 @@ export async function yearHasData(year: number): Promise<boolean> {
   } catch {
     return false
   }
+}
+
+export async function yearHasData(year: number): Promise<boolean> {
+  if (isProviderEnabled('fjelstul') && listFjelstulYears().includes(year)) return true
+  if (await yearHasOpenFootballData(year)) return true
+  if (await hasBundledData(year)) return true
+  return false
 }
 
 async function mapPool<T, R>(
@@ -137,6 +120,12 @@ async function mapPool<T, R>(
 export async function discoverAvailableYears(): Promise<number[]> {
   const currentEdition = getMaxSelectableYear()
   const available = new Set<number>([currentEdition])
+
+  if (isProviderEnabled('fjelstul')) {
+    for (const year of listFjelstulYears()) {
+      available.add(year)
+    }
+  }
 
   const pastYears = listPastWorldCupYearsToProbe()
   const checks = await mapPool(pastYears, PROBE_CONCURRENCY, async (year) =>

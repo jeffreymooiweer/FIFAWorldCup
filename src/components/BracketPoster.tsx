@@ -49,6 +49,7 @@ export function BracketPoster({
   const [selectedGroup, setSelectedGroup] = useState<string | null>(initialGroup)
   const {
     posterRef,
+    viewportRef,
     scale,
     scaledWidth,
     scaledHeight,
@@ -85,8 +86,9 @@ export function BracketPoster({
   const groupCount = groupsLeft.length + groupsRight.length
 
   return (
-    <div className="poster-viewport">
+    <div className="poster-viewport" ref={viewportRef}>
       <ZoomControls
+        className="zoom-controls--desktop"
         onZoomIn={zoomIn}
         onZoomOut={zoomOut}
         onReset={resetZoom}

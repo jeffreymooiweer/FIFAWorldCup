@@ -1,15 +1,9 @@
 import type { WorldCupData } from '../types'
-import { fetchWithTimeout } from './fetchWithTimeout'
-import { getBundledWorldCupUrl, getLiveWorldCupUrl } from './worldCupDataUrls'
 import { TournamentLoadError } from '../types/errors'
+import { fetchWorldCupFromSources } from './sources/fetchFromSources'
+import type { DataProvider, MergedFetchResult } from './sources/types'
 
-export type DataSource = 'live' | 'cache' | 'bundled'
-
-export interface FetchResult {
-  data: WorldCupData
-  source: DataSource
-  fetchedAt: Date
-}
+export type { DataProvider }
 
 const CACHE_PREFIX = 'wk-data-cache-'
 
@@ -35,40 +29,29 @@ function writeCache(year: number, data: WorldCupData): void {
   }
 }
 
-async function fetchBundled(year: number): Promise<WorldCupData | null> {
-  try {
-    const response = await fetchWithTimeout(getBundledWorldCupUrl(year), { timeoutMs: 10000 })
-    if (!response.ok) return null
-    return response.json() as Promise<WorldCupData>
-  } catch {
-    return null
-  }
-}
-
-async function fetchLive(year: number): Promise<WorldCupData> {
-  const response = await fetchWithTimeout(getLiveWorldCupUrl(year), { timeoutMs: 12000 })
-  if (!response.ok) {
-    throw new TournamentLoadError('loadFailed', { status: response.status })
-  }
-  return response.json() as Promise<WorldCupData>
+export interface FetchResult extends MergedFetchResult {
+  source: DataProvider
 }
 
 export async function fetchWorldCupDataWithFallback(year: number): Promise<FetchResult> {
   try {
-    const data = await fetchLive(year)
-    writeCache(year, data)
-    return { data, source: 'live', fetchedAt: new Date() }
+    const result = await fetchWorldCupFromSources(year)
+    writeCache(year, result.data)
+    return { ...result, source: result.provider }
   } catch (liveError) {
     const cached = readCache(year)
     if (cached) {
-      return { data: cached, source: 'cache', fetchedAt: new Date() }
+      return {
+        data: cached,
+        provider: 'cache',
+        providers: ['cache'],
+        source: 'cache',
+        fromCache: true,
+        fetchedAt: new Date(),
+      }
     }
 
-    const bundled = await fetchBundled(year)
-    if (bundled) {
-      return { data: bundled, source: 'bundled', fetchedAt: new Date() }
-    }
-
-    throw liveError
+    if (liveError instanceof TournamentLoadError) throw liveError
+    throw new TournamentLoadError('loadFailed', { status: 'unknown' })
   }
 }

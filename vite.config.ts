@@ -34,8 +34,24 @@ export default defineConfig({
             urlPattern: /^https:\/\/raw\.githubusercontent\.com\/openfootball\/.*/i,
             handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'worldcup-api',
+              cacheName: 'worldcup-openfootball',
               expiration: { maxEntries: 8, maxAgeSeconds: 60 * 60 * 24 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/raw\.githubusercontent\.com\/jfjelstul\/worldcup\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'worldcup-fjelstul',
+              expiration: { maxEntries: 2, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/worldcup26\.ir\/get\/.*/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'worldcup26',
+              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 5 },
             },
           },
         ],

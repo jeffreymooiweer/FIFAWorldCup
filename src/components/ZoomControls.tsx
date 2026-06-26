@@ -1,17 +1,28 @@
 import { useTranslation } from 'react-i18next'
 
 interface ZoomControlsProps {
+  className?: string
   onZoomIn: () => void
   onZoomOut: () => void
   onReset: () => void
   scale: number
 }
 
-export function ZoomControls({ onZoomIn, onZoomOut, onReset, scale }: ZoomControlsProps) {
+export function ZoomControls({
+  className,
+  onZoomIn,
+  onZoomOut,
+  onReset,
+  scale,
+}: ZoomControlsProps) {
   const { t } = useTranslation()
 
   return (
-    <div className="zoom-controls" role="toolbar" aria-label={t('zoom.ariaLabel')}>
+    <div
+      className={['zoom-controls', className].filter(Boolean).join(' ')}
+      role="toolbar"
+      aria-label={t('zoom.ariaLabel')}
+    >
       <button
         type="button"
         className="zoom-controls__btn"

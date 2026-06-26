@@ -1,29 +1,40 @@
 import { useTranslation } from 'react-i18next'
-import type { DataSource } from '../lib/dataFetch'
+import type { DataProvider } from '../lib/dataFetch'
 import { formatLastUpdated } from '../lib/dates'
 
 interface DataAttributionProps {
-  source: DataSource | null
+  source: DataProvider | null
+  providers?: DataProvider[]
   lastUpdated: Date | null
 }
 
-export function DataAttribution({ source, lastUpdated }: DataAttributionProps) {
+const PROVIDER_KEYS: Record<DataProvider, string> = {
+  openfootball: 'meta.sourceOpenfootball',
+  fjelstul: 'meta.sourceFjelstul',
+  worldcup26: 'meta.sourceWorldcup26',
+  'football-data': 'meta.sourceFootballData',
+  'api-football': 'meta.sourceApiFootball',
+  zafronix: 'meta.sourceZafronix',
+  bundled: 'meta.sourceBundled',
+  cache: 'meta.sourceCache',
+}
+
+export function DataAttribution({ source, providers = [], lastUpdated }: DataAttributionProps) {
   const { t } = useTranslation()
 
-  const sourceLabel =
-    source === 'live'
-      ? t('meta.sourceLive')
-      : source === 'cache'
-        ? t('meta.sourceCache')
-        : source === 'bundled'
-          ? t('meta.sourceBundled')
-          : null
+  if (!source) return null
 
-  if (!sourceLabel) return null
+  const label =
+    source === 'cache'
+      ? t('meta.sourceCache')
+      : t('meta.sourceMerged', {
+          primary: t(PROVIDER_KEYS[source]),
+          count: Math.max(providers.length, 1),
+        })
 
   return (
     <footer className="data-attribution">
-      <span>{sourceLabel}</span>
+      <span>{label}</span>
       {lastUpdated && (
         <span className="data-attribution__time">
           · {formatLastUpdated(lastUpdated)}

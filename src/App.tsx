@@ -47,6 +47,7 @@ export default function App() {
     loading,
     error,
     dataSource,
+    dataProviders,
     structureWarnings,
   } = useTournamentData(prefs.year, edition)
 
@@ -132,7 +133,11 @@ export default function App() {
 
       {dock}
 
-      <DataAttribution source={dataSource} lastUpdated={lastUpdated} />
+      <DataAttribution
+        source={dataSource}
+        providers={dataProviders}
+        lastUpdated={lastUpdated}
+      />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { getPosterBracket } from '../config/posterBracket'
 import type { PosterBracketConfig } from '../config/posterBracket'
 import { deriveGroupsFromMatches, splitGroupsForPoster } from '../lib/groups'
 import { resolveKnockoutBracket, getChampion } from '../lib/bracket'
-import { fetchWorldCupDataWithFallback, type DataSource } from '../lib/dataFetch'
+import { fetchWorldCupDataWithFallback, type DataProvider } from '../lib/dataFetch'
 import { inferKnockoutLayout, type KnockoutLayout } from '../lib/knockout'
 import { calculateStandings } from '../lib/standings'
 import { validateTournamentStructure } from '../lib/validateStructure'
@@ -31,7 +31,8 @@ export interface UseTournamentResult {
   lastUpdated: Date | null
   loading: boolean
   error: AppError | null
-  dataSource: DataSource | null
+  dataSource: DataProvider | null
+  dataProviders: DataProvider[]
   structureWarnings: string[]
 }
 
@@ -47,7 +48,8 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<AppError | null>(null)
-  const [dataSource, setDataSource] = useState<DataSource | null>(null)
+  const [dataSource, setDataSource] = useState<DataProvider | null>(null)
+  const [dataProviders, setDataProviders] = useState<DataProvider[]>([])
   const [structureWarnings, setStructureWarnings] = useState<string[]>([])
 
   const groups = useMemo(() => deriveGroupsFromMatches(groupMatches), [groupMatches])
@@ -83,6 +85,7 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
       setChampion(getChampion(resolved, layout.final))
       setLastUpdated(result.fetchedAt)
       setDataSource(result.source)
+      setDataProviders(result.providers)
       setStructureWarnings(validateTournamentStructure(result.data))
       setError(null)
     } catch (err) {
@@ -140,6 +143,7 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
     loading,
     error,
     dataSource,
+    dataProviders,
     structureWarnings,
   }
 }

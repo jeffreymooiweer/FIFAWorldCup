@@ -540,6 +540,18 @@
   text-align: center;
 }
 
+@media (max-width: 900px) {
+  .poster-viewport {
+    padding-bottom: 5.5rem;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .zoom-controls--desktop {
+    display: none;
+  }
+}
+
 .mobile-list-view {
   min-height: 100vh;
   padding: 2rem 1rem 5rem;
