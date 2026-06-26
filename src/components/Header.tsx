@@ -61,7 +61,7 @@ export function TrophyCenter({
     <>
       <img
         className="trophy-center__image"
-        src={`${import.meta.env.BASE_URL}trophy.svg`}
+        src={`${import.meta.env.BASE_URL}wc.png`}
         alt={t('champion.trophyAlt')}
       />
       <div className="trophy-center__champion-box">

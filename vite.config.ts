@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['trophy.svg', 'data/worldcup-2026.json'],
+      includeAssets: ['wc.png', 'data/worldcup-2026.json'],
       manifest: {
         name: 'World Cup Bracket',
         short_name: 'WC Bracket',
@@ -20,9 +20,9 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: '/trophy.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
+            src: '/wc.png',
+            sizes: '512x512',
+            type: 'image/png',
             purpose: 'any',
           },
         ],
