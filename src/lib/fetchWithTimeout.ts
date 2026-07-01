@@ -7,7 +7,7 @@ export async function fetchWithTimeout(
   const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs)
 
   try {
-    return await fetch(input, { ...rest, signal: controller.signal })
+    return await fetch(input, { ...rest, signal: controller.signal, cache: 'no-store' })
   } finally {
     window.clearTimeout(timeoutId)
   }

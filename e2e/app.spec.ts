@@ -25,6 +25,6 @@ test('year stepper switches edition', async ({ page }) => {
   const olderBtn = page.locator('.app-dock__year-btn').last()
   await expect(olderBtn).toBeEnabled()
   await olderBtn.click()
-  await expect(page.locator('.header__title-year')).toHaveText('2022')
+  await expect(page.locator('.header__title-year')).toHaveText('2022', { timeout: 15000 })
   await expect(page.locator('.app-dock__year-value')).toHaveText('2022')
 })

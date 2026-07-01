@@ -16,3 +16,13 @@ export class TournamentLoadError extends Error {
     this.params = params
   }
 }
+
+export function isTournamentLoadError(err: unknown): err is TournamentLoadError {
+  return (
+    err instanceof TournamentLoadError ||
+    (typeof err === 'object' &&
+      err !== null &&
+      'key' in err &&
+      (err as TournamentLoadError).name === 'TournamentLoadError')
+  )
+}

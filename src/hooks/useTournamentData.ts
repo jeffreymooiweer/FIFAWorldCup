@@ -11,9 +11,9 @@ import { calculateStandings } from '../lib/standings'
 import { validateTournamentStructure } from '../lib/validateStructure'
 import type { Match, ResolvedMatch, GroupStanding } from '../types'
 import type { AppError } from '../types/errors'
-import { TournamentLoadError } from '../types/errors'
+import { TournamentLoadError, isTournamentLoadError } from '../types/errors'
 
-const POLL_INTERVAL_MS = 5 * 60 * 1000
+const POLL_INTERVAL_MS = 2 * 60 * 1000
 
 const EMPTY_LAYOUT = inferKnockoutLayout([])
 
@@ -90,7 +90,7 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
       setError(null)
     } catch (err) {
       if (signal.cancelled) return
-      if (err instanceof TournamentLoadError) {
+      if (isTournamentLoadError(err)) {
         setError({ key: err.key, params: err.params })
       } else {
         setError({ key: 'unknown' })
@@ -122,9 +122,15 @@ export function useTournamentData(year: number, edition: EditionConfig): UseTour
       void loadData(signal)
     }, POLL_INTERVAL_MS)
 
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void loadData(signal)
+    }
+    document.addEventListener('visibilitychange', onVisible)
+
     return () => {
       signal.cancelled = true
       window.clearInterval(interval)
+      document.removeEventListener('visibilitychange', onVisible)
     }
   }, [loadData])
 

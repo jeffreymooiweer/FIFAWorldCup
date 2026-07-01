@@ -32,10 +32,11 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/raw\.githubusercontent\.com\/openfootball\/.*/i,
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'worldcup-openfootball',
-              expiration: { maxEntries: 8, maxAgeSeconds: 60 * 60 * 24 },
+              networkTimeoutSeconds: 10,
+              expiration: { maxEntries: 8, maxAgeSeconds: 60 * 5 },
             },
           },
           {
@@ -48,9 +49,10 @@ export default defineConfig({
           },
           {
             urlPattern: /^https:\/\/worldcup26\.ir\/get\/.*/i,
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'worldcup26',
+              networkTimeoutSeconds: 10,
               expiration: { maxEntries: 4, maxAgeSeconds: 60 * 5 },
             },
           },

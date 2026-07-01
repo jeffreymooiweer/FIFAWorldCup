@@ -1,5 +1,5 @@
 import type { WorldCupData } from '../types'
-import { TournamentLoadError } from '../types/errors'
+import { TournamentLoadError, isTournamentLoadError } from '../types/errors'
 import { fetchWorldCupFromSources } from './sources/fetchFromSources'
 import type { DataProvider, MergedFetchResult } from './sources/types'
 
@@ -52,6 +52,7 @@ export async function fetchWorldCupDataWithFallback(year: number): Promise<Fetch
     }
 
     if (liveError instanceof TournamentLoadError) throw liveError
+    if (isTournamentLoadError(liveError)) throw liveError
     throw new TournamentLoadError('loadFailed', { status: 'unknown' })
   }
 }

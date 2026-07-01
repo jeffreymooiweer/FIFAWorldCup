@@ -14,8 +14,8 @@ const TEAM_ALIASES: Record<string, string> = {
   'west germany': 'germany',
 }
 
-export function normalizeTeamName(name: string): string {
-  const base = name
+export function normalizeTeamName(name: string | undefined | null): string {
+  const base = (name ?? '')
     .normalize('NFD')
     .replace(/\p{M}/gu, '')
     .toLowerCase()
@@ -24,30 +24,49 @@ export function normalizeTeamName(name: string): string {
   return TEAM_ALIASES[base] ?? base
 }
 
-export function matchKey(match: Pick<RawMatch, 'date' | 'team1' | 'team2'>): string {
+export function matchKey(match: Pick<RawMatch, 'date' | 'team1' | 'team2'>): string | null {
+  if (!match.date || !match.team1?.trim() || !match.team2?.trim()) return null
   const teams = [normalizeTeamName(match.team1), normalizeTeamName(match.team2)].sort()
   return `${match.date}|${teams[0]}|${teams[1]}`
 }
 
+function pickScore(
+  primary: RawMatch['score'],
+  secondary: RawMatch['score'],
+): RawMatch['score'] {
+  if (!secondary) return primary
+  if (!primary) return secondary
+  return primary
+}
+
 export function mergeWorldCupData(base: WorldCupData, extra: WorldCupData): WorldCupData {
-  const extraByKey = new Map(extra.matches.map((m) => [matchKey(m), m]))
+  const extraByKey = new Map<string, RawMatch>()
+  for (const match of extra.matches) {
+    const key = matchKey(match)
+    if (key) extraByKey.set(key, match)
+  }
+
   const mergedMatches = base.matches.map((match) => {
-    const other = extraByKey.get(matchKey(match))
+    const key = matchKey(match)
+    const other = key ? extraByKey.get(key) : undefined
     if (!other) return match
     return {
       ...match,
       time: match.time?.trim() ? match.time : other.time,
       ground: match.ground?.trim() ? match.ground : other.ground,
-      score: match.score ?? other.score,
+      score: pickScore(match.score, other.score),
       num: match.num ?? other.num,
     }
   })
 
-  const baseKeys = new Set(base.matches.map(matchKey))
+  const baseKeys = new Set(
+    base.matches.map(matchKey).filter((key): key is string => key !== null),
+  )
   for (const match of extra.matches) {
-    if (!baseKeys.has(matchKey(match))) {
-      mergedMatches.push(match)
-    }
+    const key = matchKey(match)
+    if (!key || baseKeys.has(key)) continue
+    if (!match.team1?.trim() || !match.team2?.trim()) continue
+    mergedMatches.push(match)
   }
 
   return {

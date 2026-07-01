@@ -6,8 +6,10 @@ import type { WorldCupSource } from './types'
 const GAMES_URL = 'https://worldcup26.ir/get/games'
 
 interface WorldCup26Game {
-  home_team_name_en: string
-  away_team_name_en: string
+  home_team_name_en?: string
+  away_team_name_en?: string
+  home_team_label?: string
+  away_team_label?: string
   home_score?: string
   away_score?: string
   group?: string
@@ -29,7 +31,18 @@ function parseLocalDate(value?: string): { date: string; time: string } {
   return { date, time: timePart ?? '' }
 }
 
+function teamName(game: WorldCup26Game, side: 'home' | 'away'): string | null {
+  const name = side === 'home' ? game.home_team_name_en : game.away_team_name_en
+  const label = side === 'home' ? game.home_team_label : game.away_team_label
+  const value = (name?.trim() || label?.trim() || '').trim()
+  return value || null
+}
+
 function toRawMatch(game: WorldCup26Game): RawMatch | null {
+  const team1 = teamName(game, 'home')
+  const team2 = teamName(game, 'away')
+  if (!team1 || !team2) return null
+
   const { date, time } = parseLocalDate(game.local_date)
   if (!date) return null
 
@@ -42,8 +55,8 @@ function toRawMatch(game: WorldCup26Game): RawMatch | null {
     round: isKnockout ? 'Knockout' : 'Matchday 1',
     date,
     time,
-    team1: game.home_team_name_en,
-    team2: game.away_team_name_en,
+    team1,
+    team2,
     group: !isKnockout && game.group ? `Group ${game.group}` : undefined,
     score:
       played && Number.isFinite(home) && Number.isFinite(away)

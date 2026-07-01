@@ -53,6 +53,7 @@ export default function App() {
 
   useEffect(() => {
     if (loading || !error) return
+    if (error.key !== 'loadFailed' || error.params?.status !== 'empty') return
     removeYearFromCache(prefs.year)
     const fallback = clampYear(getMaxSelectableYear(), availableYears)
     if (prefs.year !== fallback) setYear(fallback)

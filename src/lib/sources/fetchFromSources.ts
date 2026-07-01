@@ -62,7 +62,15 @@ export async function fetchWorldCupFromSources(year: number): Promise<MergedFetc
 
   let merged = successes[0].data
   for (let i = 1; i < successes.length; i += 1) {
-    merged = mergeWorldCupData(merged, successes[i].data)
+    try {
+      merged = mergeWorldCupData(merged, successes[i].data)
+    } catch {
+      // Ignore secondary sources that cannot be merged safely.
+    }
+  }
+
+  if (!isValidData(merged)) {
+    throw new TournamentLoadError('loadFailed', { status: 'invalid-merge' })
   }
 
   return {
