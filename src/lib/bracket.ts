@@ -51,17 +51,23 @@ function resolveThirdPlaceholder(
   return null
 }
 
+function decisiveScore(match: ResolvedMatch): [number, number] | null {
+  return match.resultScore ?? match.score
+}
+
 function getMatchWinner(match: ResolvedMatch): string | null {
-  if (!match.played || !match.score) return null
-  const [s1, s2] = match.score
+  const score = decisiveScore(match)
+  if (!match.played || !score) return null
+  const [s1, s2] = score
   if (s1 > s2) return match.resolvedTeam1
   if (s2 > s1) return match.resolvedTeam2
   return null
 }
 
 function getMatchLoser(match: ResolvedMatch): string | null {
-  if (!match.played || !match.score) return null
-  const [s1, s2] = match.score
+  const score = decisiveScore(match)
+  if (!match.played || !score) return null
+  const [s1, s2] = score
   if (s1 > s2) return match.resolvedTeam2
   if (s2 > s1) return match.resolvedTeam1
   return null

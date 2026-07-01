@@ -5,7 +5,17 @@ import type { WorldCupSource } from './types'
 
 const GAMES_URL = 'https://worldcup26.ir/get/games'
 
+const ROUND_BY_TYPE: Record<string, string> = {
+  r32: 'Round of 32',
+  r16: 'Round of 16',
+  qf: 'Quarter-finals',
+  sf: 'Semi-finals',
+  third: 'Third place play-off',
+  final: 'Final',
+}
+
 interface WorldCup26Game {
+  id?: string
   home_team_name_en?: string
   away_team_name_en?: string
   home_team_label?: string
@@ -31,11 +41,19 @@ function parseLocalDate(value?: string): { date: string; time: string } {
   return { date, time: timePart ?? '' }
 }
 
+function labelToTeam(label?: string): string | null {
+  const value = label?.trim()
+  if (!value) return null
+  const winner = value.match(/^Winner Match (\d+)$/i)
+  if (winner) return `W${winner[1]}`
+  return value
+}
+
 function teamName(game: WorldCup26Game, side: 'home' | 'away'): string | null {
   const name = side === 'home' ? game.home_team_name_en : game.away_team_name_en
+  if (name?.trim()) return name.trim()
   const label = side === 'home' ? game.home_team_label : game.away_team_label
-  const value = (name?.trim() || label?.trim() || '').trim()
-  return value || null
+  return labelToTeam(label)
 }
 
 function toRawMatch(game: WorldCup26Game): RawMatch | null {
@@ -46,13 +64,16 @@ function toRawMatch(game: WorldCup26Game): RawMatch | null {
   const { date, time } = parseLocalDate(game.local_date)
   if (!date) return null
 
-  const isKnockout = game.type && game.type !== 'group'
+  const type = game.type ?? 'group'
+  const isKnockout = type !== 'group'
   const home = Number(game.home_score)
   const away = Number(game.away_score)
   const played = game.finished?.toUpperCase() === 'TRUE'
+  const num = game.id ? Number(game.id) : undefined
 
   return {
-    round: isKnockout ? 'Knockout' : 'Matchday 1',
+    round: isKnockout ? (ROUND_BY_TYPE[type] ?? 'Knockout') : 'Matchday 1',
+    num: Number.isFinite(num) ? num : undefined,
     date,
     time,
     team1,

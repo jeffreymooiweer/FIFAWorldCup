@@ -1,5 +1,22 @@
-import type { RawMatch, WorldCupData, Match } from '../types'
+import type { RawMatch, RawScore, WorldCupData, Match } from '../types'
 import { parseGroupLetter } from './groups'
+
+export function scoresFromRaw(raw?: RawScore): {
+  score: [number, number] | null
+  resultScore: [number, number] | null
+} {
+  const ft = raw?.ft
+  if (!ft) return { score: null, resultScore: null }
+  const [home, away] = ft
+  if (home !== away) {
+    return { score: ft, resultScore: ft }
+  }
+  const penalties = raw?.p
+  if (penalties && penalties[0] !== penalties[1]) {
+    return { score: ft, resultScore: penalties }
+  }
+  return { score: ft, resultScore: ft }
+}
 
 const PLACEHOLDER_RE = /^(\d[A-Z](?:\/[A-Z\/]+)?|W\d+|L\d+)$/
 
@@ -27,7 +44,7 @@ function assignMatchNumbers(matches: RawMatch[]): RawMatch[] {
 }
 
 function normalizeMatch(raw: RawMatch, index: number, knockoutStart: number): Match {
-  const score = raw.score?.ft ?? null
+  const { score, resultScore } = scoresFromRaw(raw.score)
   return {
     num: raw.num ?? (raw.group ? null : knockoutStart + index),
     round: raw.round,
@@ -36,6 +53,7 @@ function normalizeMatch(raw: RawMatch, index: number, knockoutStart: number): Ma
     team1: raw.team1,
     team2: raw.team2,
     score,
+    resultScore,
     group: parseGroupLetter(raw.group),
     ground: raw.ground ?? null,
     played: score !== null,

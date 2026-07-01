@@ -46,9 +46,18 @@ export function mergeWorldCupData(base: WorldCupData, extra: WorldCupData): Worl
     if (key) extraByKey.set(key, match)
   }
 
+  const extraByNum = new Map<number, RawMatch>()
+  for (const match of extra.matches) {
+    if (match.num != null) extraByNum.set(match.num, match)
+  }
+
+  const baseHasKnockout = base.matches.some((match) => !match.group)
+
   const mergedMatches = base.matches.map((match) => {
     const key = matchKey(match)
-    const other = key ? extraByKey.get(key) : undefined
+    const other =
+      (key ? extraByKey.get(key) : undefined) ??
+      (match.num != null ? extraByNum.get(match.num) : undefined)
     if (!other) return match
     return {
       ...match,
@@ -62,10 +71,16 @@ export function mergeWorldCupData(base: WorldCupData, extra: WorldCupData): Worl
   const baseKeys = new Set(
     base.matches.map(matchKey).filter((key): key is string => key !== null),
   )
+  const baseNums = new Set(
+    base.matches.map((match) => match.num).filter((num): num is number => num != null),
+  )
   for (const match of extra.matches) {
     const key = matchKey(match)
-    if (!key || baseKeys.has(key)) continue
+    if (key && baseKeys.has(key)) continue
+    if (match.num != null && baseNums.has(match.num)) continue
     if (!match.team1?.trim() || !match.team2?.trim()) continue
+    // Secondary feeds must not duplicate the knockout tree from openfootball.
+    if (!match.group && baseHasKnockout) continue
     mergedMatches.push(match)
   }
 

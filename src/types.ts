@@ -1,6 +1,8 @@
 export interface RawScore {
   ft: [number, number]
   ht?: [number, number]
+  et?: [number, number]
+  p?: [number, number]
 }
 
 export interface RawMatch {
@@ -27,7 +29,10 @@ export interface Match {
   time: string
   team1: string
   team2: string
+  /** Full-time score shown in the UI. */
   score: [number, number] | null
+  /** Score used to determine the winner (penalties after a draw). */
+  resultScore: [number, number] | null
   group: string | null
   ground: string | null
   played: boolean
